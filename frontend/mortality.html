@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mortality Tracking - APFMS</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/responsive.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+  <div class="app-container">
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-brand-icon"><i class="fa-solid fa-drumstick-bite"></i></div>
+        <div class="sidebar-brand-text"><h2>APFMS</h2><span>Poultry OS</span></div>
+      </div>
+      <ul class="sidebar-menu">
+        <li class="sidebar-menu-category">Main Console</li>
+        <li><a href="dashboard.html" class="sidebar-link"><i class="fa-solid fa-chart-pie"></i> <span>Dashboard</span></a></li>
+        <li class="sidebar-menu-category">Poultry & Production</li>
+        <li><a href="houses.html" class="sidebar-link"><i class="fa-solid fa-warehouse"></i> <span>Poultry Houses</span></a></li>
+        <li><a href="flocks.html" class="sidebar-link"><i class="fa-solid fa-kiwi-bird"></i> <span>Flocks / Batches</span></a></li>
+        <li><a href="activities.html" class="sidebar-link"><i class="fa-solid fa-calendar-check"></i> <span>Daily Activities</span></a></li>
+        <li><a href="mortality.html" class="sidebar-link active"><i class="fa-solid fa-skull-crossbones"></i> <span>Mortality Log</span></a></li>
+        <li><a href="eggs.html" class="sidebar-link"><i class="fa-solid fa-egg"></i> <span>Egg Production</span></a></li>
+        <li class="sidebar-menu-category">Inventory & Health</li>
+        <li><a href="feed.html" class="sidebar-link"><i class="fa-solid fa-wheat-awn"></i> <span>Feed Inventory</span></a></li>
+        <li><a href="medications.html" class="sidebar-link"><i class="fa-solid fa-pills"></i> <span>Medications</span></a></li>
+        <li><a href="vaccinations.html" class="sidebar-link"><i class="fa-solid fa-syringe"></i> <span>Vaccinations</span></a></li>
+        <li><a href="inventory.html" class="sidebar-link"><i class="fa-solid fa-boxes-stacked"></i> <span>General Inventory</span></a></li>
+        <li><a href="equipment.html" class="sidebar-link"><i class="fa-solid fa-screwdriver-wrench"></i> <span>Equipment</span></a></li>
+        <li class="sidebar-menu-category">Finance & Contacts</li>
+        <li><a href="sales.html" class="sidebar-link"><i class="fa-solid fa-cart-shopping"></i> <span>Sales Management</span></a></li>
+        <li><a href="expenses.html" class="sidebar-link"><i class="fa-solid fa-receipt"></i> <span>Farm Expenses</span></a></li>
+        <li><a href="customers.html" class="sidebar-link"><i class="fa-solid fa-users"></i> <span>Customers</span></a></li>
+        <li><a href="suppliers.html" class="sidebar-link"><i class="fa-solid fa-truck-field"></i> <span>Suppliers</span></a></li>
+        <li class="sidebar-menu-category">Analytics & Admin</li>
+        <li><a href="reports.html" class="sidebar-link"><i class="fa-solid fa-file-invoice-dollar"></i> <span>Reports Center</span></a></li>
+        <li><a href="notifications.html" class="sidebar-link"><i class="fa-solid fa-bell"></i> <span>Alerts Feed</span></a></li>
+        <li class="admin-only"><a href="users.html" class="sidebar-link"><i class="fa-solid fa-user-gear"></i> <span>User Management</span></a></li>
+        <li><a href="profile.html" class="sidebar-link"><i class="fa-solid fa-user-check"></i> <span>My Profile</span></a></li>
+      </ul>
+      <div class="sidebar-user">
+        <div class="user-avatar">U</div>
+        <div class="user-info"><h4 class="current-user-name">User</h4><span class="current-user-role">Role</span></div>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <div style="display: flex; align-items: center; gap: 1rem;">
+          <button id="sidebarToggle" class="topbar-toggle"><i class="fa-solid fa-bars"></i></button>
+          <div class="page-title"><h1>Bird Mortality Tracking</h1></div>
+        </div>
+        <div class="topbar-actions">
+          <button onclick="openModal('addMortalityModal')" class="btn-primary" style="background: var(--color-danger);"><i class="fa-solid fa-plus"></i> Log Mortality Incident</button>
+        </div>
+      </header>
+
+      <div class="content-body">
+        <div class="card">
+          <div class="table-responsive">
+            <table class="data-table" id="mortalityTable">
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Flock Batch</th>
+                  <th>Quantity Died</th>
+                  <th>Mortality Rate (%)</th>
+                  <th>Cause of Death</th>
+                  <th>Remarks / Action Taken</th>
+                  <th>Logged By</th>
+                </tr>
+              </thead>
+              <tbody id="mortalityTableBody">
+                <!-- Dynamically populated -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Add Mortality Modal -->
+  <div class="modal-backdrop" id="addMortalityModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3><i class="fa-solid fa-skull-crossbones" style="color: var(--color-danger);"></i> Log Bird Mortality Incident</h3>
+        <button onclick="closeModal('addMortalityModal')" class="modal-close"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <form id="addMortalityForm">
+        <div class="form-group">
+          <label>Date</label>
+          <input type="date" id="record_date" class="form-control" required>
+        </div>
+        <div class="form-group">
+          <label>Flock Batch</label>
+          <select id="mort_flock_id" class="form-control" required></select>
+        </div>
+        <div class="form-group">
+          <label>Number of Birds Died</label>
+          <input type="number" id="quantity" class="form-control" placeholder="3" required>
+        </div>
+        <div class="form-group">
+          <label>Primary Cause of Death</label>
+          <select id="cause_of_death" class="form-control" required>
+            <option value="Heat Stress">Heat Stress</option>
+            <option value="Coccidiosis">Coccidiosis</option>
+            <option value="Ascites / Water Belly">Ascites / Water Belly</option>
+            <option value="Bacterial Infection">Bacterial Infection</option>
+            <option value="Physical Injury / Trampling">Physical Injury / Trampling</option>
+            <option value="Unknown / Other">Unknown / Other</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Remarks / Corrective Actions Taken</label>
+          <textarea id="remarks" class="form-control" rows="2"></textarea>
+        </div>
+        <button type="submit" class="btn-primary" style="width: 100%; justify-content: center; background: var(--color-danger);"><i class="fa-solid fa-save"></i> Save Mortality Log</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="js/config.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    Auth.checkProtectedPage();
+    document.addEventListener('DOMContentLoaded', () => {
+      loadMortality();
+      loadFlockDropdown();
+      document.getElementById('record_date').value = new Date().toISOString().split('T')[0];
+    });
+
+    async function loadMortality() {
+      const res = await Auth.fetchWithAuth('/api/mortality');
+      const result = await res.json();
+      if (result.success) {
+        document.getElementById('mortalityTableBody').innerHTML = result.data.map(m => `
+          <tr>
+            <td><strong>${m.record_date}</strong></td>
+            <td><span class="badge badge-info">${m.batch_number}</span></td>
+            <td><strong style="color: var(--color-danger);">${m.quantity} birds</strong></td>
+            <td><span class="badge badge-danger">${m.mortality_rate_pct}%</span></td>
+            <td>${m.cause_of_death}</td>
+            <td>${m.remarks || '-'}</td>
+            <td>${m.recorded_by_name || 'Staff'}</td>
+          </tr>
+        `).join('');
+      }
+    }
+
+    async function loadFlockDropdown() {
+      const res = await Auth.fetchWithAuth('/api/flocks');
+      const result = await res.json();
+      if (result.success) {
+        document.getElementById('mort_flock_id').innerHTML = result.data.map(f => `<option value="${f.id}">${f.batch_number} (${f.current_quantity} birds)</option>`).join('');
+      }
+    }
+
+    document.getElementById('addMortalityForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const body = {
+        record_date: document.getElementById('record_date').value,
+        flock_id: document.getElementById('mort_flock_id').value,
+        quantity: document.getElementById('quantity').value,
+        cause_of_death: document.getElementById('cause_of_death').value,
+        remarks: document.getElementById('remarks').value
+      };
+
+      const res = await Auth.fetchWithAuth('/api/mortality', { method: 'POST', body: JSON.stringify(body) });
+      const result = await res.json();
+      if (result.success) {
+        showToast(result.message, 'success');
+        closeModal('addMortalityModal');
+        loadMortality();
+      } else {
+        showToast(result.message, 'error');
+      }
+    });
+  </script>
+</body>
+</html>

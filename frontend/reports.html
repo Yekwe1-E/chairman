@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reports Center - APFMS</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/responsive.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+  <div class="app-container">
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-brand-icon"><i class="fa-solid fa-drumstick-bite"></i></div>
+        <div class="sidebar-brand-text"><h2>APFMS</h2><span>Poultry OS</span></div>
+      </div>
+      <ul class="sidebar-menu">
+        <li class="sidebar-menu-category">Main Console</li>
+        <li><a href="dashboard.html" class="sidebar-link"><i class="fa-solid fa-chart-pie"></i> <span>Dashboard</span></a></li>
+        <li class="sidebar-menu-category">Poultry & Production</li>
+        <li><a href="houses.html" class="sidebar-link"><i class="fa-solid fa-warehouse"></i> <span>Poultry Houses</span></a></li>
+        <li><a href="flocks.html" class="sidebar-link"><i class="fa-solid fa-kiwi-bird"></i> <span>Flocks / Batches</span></a></li>
+        <li><a href="activities.html" class="sidebar-link"><i class="fa-solid fa-calendar-check"></i> <span>Daily Activities</span></a></li>
+        <li><a href="mortality.html" class="sidebar-link"><i class="fa-solid fa-skull-crossbones"></i> <span>Mortality Log</span></a></li>
+        <li><a href="eggs.html" class="sidebar-link"><i class="fa-solid fa-egg"></i> <span>Egg Production</span></a></li>
+        <li class="sidebar-menu-category">Inventory & Health</li>
+        <li><a href="feed.html" class="sidebar-link"><i class="fa-solid fa-wheat-awn"></i> <span>Feed Inventory</span></a></li>
+        <li><a href="medications.html" class="sidebar-link"><i class="fa-solid fa-pills"></i> <span>Medications</span></a></li>
+        <li><a href="vaccinations.html" class="sidebar-link"><i class="fa-solid fa-syringe"></i> <span>Vaccinations</span></a></li>
+        <li><a href="inventory.html" class="sidebar-link"><i class="fa-solid fa-boxes-stacked"></i> <span>General Inventory</span></a></li>
+        <li><a href="equipment.html" class="sidebar-link"><i class="fa-solid fa-screwdriver-wrench"></i> <span>Equipment</span></a></li>
+        <li class="sidebar-menu-category">Finance & Contacts</li>
+        <li><a href="sales.html" class="sidebar-link"><i class="fa-solid fa-cart-shopping"></i> <span>Sales Management</span></a></li>
+        <li><a href="expenses.html" class="sidebar-link"><i class="fa-solid fa-receipt"></i> <span>Farm Expenses</span></a></li>
+        <li><a href="customers.html" class="sidebar-link"><i class="fa-solid fa-users"></i> <span>Customers</span></a></li>
+        <li><a href="suppliers.html" class="sidebar-link"><i class="fa-solid fa-truck-field"></i> <span>Suppliers</span></a></li>
+        <li class="sidebar-menu-category">Analytics & Admin</li>
+        <li><a href="reports.html" class="sidebar-link active"><i class="fa-solid fa-file-invoice-dollar"></i> <span>Reports Center</span></a></li>
+        <li><a href="notifications.html" class="sidebar-link"><i class="fa-solid fa-bell"></i> <span>Alerts Feed</span></a></li>
+        <li class="admin-only"><a href="users.html" class="sidebar-link"><i class="fa-solid fa-user-gear"></i> <span>User Management</span></a></li>
+        <li><a href="profile.html" class="sidebar-link"><i class="fa-solid fa-user-check"></i> <span>My Profile</span></a></li>
+      </ul>
+      <div class="sidebar-user">
+        <div class="user-avatar">U</div>
+        <div class="user-info"><h4 class="current-user-name">User</h4><span class="current-user-role">Role</span></div>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <div style="display: flex; align-items: center; gap: 1rem;">
+          <button id="sidebarToggle" class="topbar-toggle"><i class="fa-solid fa-bars"></i></button>
+          <div class="page-title"><h1>Farm Reporting Center</h1></div>
+        </div>
+        <div class="topbar-actions" style="display: flex; gap: 0.75rem;">
+          <button onclick="window.print()" class="btn-secondary"><i class="fa-solid fa-print"></i> Print Report</button>
+          <button onclick="exportTableToCSV('farm_report.csv', 'reportTable')" class="btn-primary"><i class="fa-solid fa-file-csv"></i> Export CSV</button>
+        </div>
+      </header>
+
+      <div class="content-body">
+        <!-- Report Filters -->
+        <div class="card" style="margin-bottom: 1.5rem;">
+          <h3 style="margin-bottom: 1rem;"><i class="fa-solid fa-filter"></i> Configure Report Filter</h3>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; align-items: end;">
+            <div class="form-group" style="margin: 0;">
+              <label>Select Report Type</label>
+              <select id="report_type" class="form-control">
+                <option value="flock">1. Flock Batch Report</option>
+                <option value="mortality">2. Bird Mortality Report</option>
+                <option value="eggs">3. Egg Production Report</option>
+                <option value="feed">4. Feed Consumption Report</option>
+                <option value="sales">5. Poultry Sales Report</option>
+                <option value="expenses">6. Farm Expenses Report</option>
+              </select>
+            </div>
+            <div class="form-group" style="margin: 0;">
+              <label>Start Date</label>
+              <input type="date" id="start_date" class="form-control">
+            </div>
+            <div class="form-group" style="margin: 0;">
+              <label>End Date</label>
+              <input type="date" id="end_date" class="form-control">
+            </div>
+            <button onclick="generateReport()" class="btn-primary" style="height: 42px;"><i class="fa-solid fa-rotate"></i> Generate Report</button>
+          </div>
+        </div>
+
+        <!-- Generated Report Results Table -->
+        <div class="card">
+          <h3 id="reportTitle" style="margin-bottom: 1rem;">Report Preview</h3>
+          <div class="table-responsive">
+            <table class="data-table" id="reportTable">
+              <thead id="reportTableHead">
+                <!-- Dynamically populated -->
+              </thead>
+              <tbody id="reportTableBody">
+                <!-- Dynamically populated -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="js/config.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    Auth.checkProtectedPage();
+    document.addEventListener('DOMContentLoaded', generateReport);
+
+    async function generateReport() {
+      const type = document.getElementById('report_type').value;
+      const res = await Auth.fetchWithAuth(`/api/reports/export?type=${type}`);
+      const result = await res.json();
+      if (!result.success) return showToast(result.message, 'error');
+
+      const thead = document.getElementById('reportTableHead');
+      const tbody = document.getElementById('reportTableBody');
+      const title = document.getElementById('reportTitle');
+
+      title.textContent = `Farm Operational Report - ${type.toUpperCase()}`;
+
+      if (type === 'flock') {
+        thead.innerHTML = `<tr><th>Batch #</th><th>Breed</th><th>Bird Type</th><th>Initial Qty</th><th>Current Qty</th><th>Status</th></tr>`;
+        tbody.innerHTML = result.data.map(f => `<tr><td>${f.batch_number}</td><td>${f.breed}</td><td>${f.bird_type}</td><td>${f.initial_quantity}</td><td>${f.current_quantity}</td><td>${f.status}</td></tr>`).join('');
+      } else if (type === 'mortality') {
+        thead.innerHTML = `<tr><th>Date</th><th>Batch #</th><th>Quantity</th><th>Cause of Death</th><th>Remarks</th></tr>`;
+        tbody.innerHTML = result.data.map(m => `<tr><td>${m.record_date}</td><td>${m.batch_number || 'N/A'}</td><td>${m.quantity}</td><td>${m.cause_of_death}</td><td>${m.remarks || '-'}</td></tr>`).join('');
+      } else if (type === 'eggs') {
+        thead.innerHTML = `<tr><th>Date</th><th>Batch #</th><th>Total Eggs</th><th>Good Eggs</th><th>Broken</th><th>Marketable Eggs</th></tr>`;
+        tbody.innerHTML = result.data.map(e => `<tr><td>${e.production_date}</td><td>${e.batch_number || 'N/A'}</td><td>${e.total_eggs}</td><td>${e.good_eggs}</td><td>${e.broken_eggs}</td><td>${e.marketable_eggs}</td></tr>`).join('');
+      } else if (type === 'feed') {
+        thead.innerHTML = `<tr><th>Feed Name</th><th>Type</th><th>Stock (Bags)</th><th>Unit Price (₦)</th><th>Supplier</th></tr>`;
+        tbody.innerHTML = result.data.map(f => `<tr><td>${f.feed_name}</td><td>${f.feed_type}</td><td>${f.current_stock}</td><td>${formatNaira(f.unit_price)}</td><td>${f.supplier_name}</td></tr>`).join('');
+      } else if (type === 'sales') {
+        thead.innerHTML = `<tr><th>Invoice #</th><th>Date</th><th>Customer</th><th>Type</th><th>Quantity</th><th>Total (₦)</th></tr>`;
+        tbody.innerHTML = result.data.map(s => `<tr><td>${s.invoice_number}</td><td>${s.sale_date}</td><td>${s.customer_name}</td><td>${s.sale_type}</td><td>${s.quantity}</td><td>${formatNaira(s.total_amount)}</td></tr>`).join('');
+      } else {
+        thead.innerHTML = `<tr><th>Date</th><th>Category</th><th>Description</th><th>Amount (₦)</th><th>Method</th></tr>`;
+        tbody.innerHTML = result.data.map(ex => `<tr><td>${ex.expense_date}</td><td>${ex.category}</td><td>${ex.description}</td><td>${formatNaira(ex.amount)}</td><td>${ex.payment_method}</td></tr>`).join('');
+      }
+    }
+  </script>
+</body>
+</html>

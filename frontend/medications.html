@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Medications - APFMS</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/responsive.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+  <div class="app-container">
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-brand-icon"><i class="fa-solid fa-drumstick-bite"></i></div>
+        <div class="sidebar-brand-text"><h2>APFMS</h2><span>Poultry OS</span></div>
+      </div>
+      <ul class="sidebar-menu">
+        <li class="sidebar-menu-category">Main Console</li>
+        <li><a href="dashboard.html" class="sidebar-link"><i class="fa-solid fa-chart-pie"></i> <span>Dashboard</span></a></li>
+        <li class="sidebar-menu-category">Poultry & Production</li>
+        <li><a href="houses.html" class="sidebar-link"><i class="fa-solid fa-warehouse"></i> <span>Poultry Houses</span></a></li>
+        <li><a href="flocks.html" class="sidebar-link"><i class="fa-solid fa-kiwi-bird"></i> <span>Flocks / Batches</span></a></li>
+        <li><a href="activities.html" class="sidebar-link"><i class="fa-solid fa-calendar-check"></i> <span>Daily Activities</span></a></li>
+        <li><a href="mortality.html" class="sidebar-link"><i class="fa-solid fa-skull-crossbones"></i> <span>Mortality Log</span></a></li>
+        <li><a href="eggs.html" class="sidebar-link"><i class="fa-solid fa-egg"></i> <span>Egg Production</span></a></li>
+        <li class="sidebar-menu-category">Inventory & Health</li>
+        <li><a href="feed.html" class="sidebar-link"><i class="fa-solid fa-wheat-awn"></i> <span>Feed Inventory</span></a></li>
+        <li><a href="medications.html" class="sidebar-link active"><i class="fa-solid fa-pills"></i> <span>Medications</span></a></li>
+        <li><a href="vaccinations.html" class="sidebar-link"><i class="fa-solid fa-syringe"></i> <span>Vaccinations</span></a></li>
+        <li><a href="inventory.html" class="sidebar-link"><i class="fa-solid fa-boxes-stacked"></i> <span>General Inventory</span></a></li>
+        <li><a href="equipment.html" class="sidebar-link"><i class="fa-solid fa-screwdriver-wrench"></i> <span>Equipment</span></a></li>
+        <li class="sidebar-menu-category">Finance & Contacts</li>
+        <li><a href="sales.html" class="sidebar-link"><i class="fa-solid fa-cart-shopping"></i> <span>Sales Management</span></a></li>
+        <li><a href="expenses.html" class="sidebar-link"><i class="fa-solid fa-receipt"></i> <span>Farm Expenses</span></a></li>
+        <li><a href="customers.html" class="sidebar-link"><i class="fa-solid fa-users"></i> <span>Customers</span></a></li>
+        <li><a href="suppliers.html" class="sidebar-link"><i class="fa-solid fa-truck-field"></i> <span>Suppliers</span></a></li>
+        <li class="sidebar-menu-category">Analytics & Admin</li>
+        <li><a href="reports.html" class="sidebar-link"><i class="fa-solid fa-file-invoice-dollar"></i> <span>Reports Center</span></a></li>
+        <li><a href="notifications.html" class="sidebar-link"><i class="fa-solid fa-bell"></i> <span>Alerts Feed</span></a></li>
+        <li class="admin-only"><a href="users.html" class="sidebar-link"><i class="fa-solid fa-user-gear"></i> <span>User Management</span></a></li>
+        <li><a href="profile.html" class="sidebar-link"><i class="fa-solid fa-user-check"></i> <span>My Profile</span></a></li>
+      </ul>
+      <div class="sidebar-user">
+        <div class="user-avatar">U</div>
+        <div class="user-info"><h4 class="current-user-name">User</h4><span class="current-user-role">Role</span></div>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <div style="display: flex; align-items: center; gap: 1rem;">
+          <button id="sidebarToggle" class="topbar-toggle"><i class="fa-solid fa-bars"></i></button>
+          <div class="page-title"><h1>Medication Management</h1></div>
+        </div>
+        <div class="topbar-actions">
+          <button onclick="openModal('addMedModal')" class="btn-primary"><i class="fa-solid fa-plus"></i> Add Medication Stock</button>
+        </div>
+      </header>
+
+      <div class="content-body">
+        <div class="card">
+          <div class="table-responsive">
+            <table class="data-table" id="medTable">
+              <thead>
+                <tr>
+                  <th>Medication Name</th>
+                  <th>Type</th>
+                  <th>Current Stock</th>
+                  <th>Unit Cost (₦)</th>
+                  <th>Supplier</th>
+                  <th>Expiry Date</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody id="medTableBody">
+                <!-- Dynamically populated -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Add Medication Modal -->
+  <div class="modal-backdrop" id="addMedModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3><i class="fa-solid fa-pills"></i> Add Medication Item</h3>
+        <button onclick="closeModal('addMedModal')" class="modal-close"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <form id="addMedForm">
+        <div class="form-group">
+          <label>Medication Name</label>
+          <input type="text" id="med_name" class="form-control" placeholder="Vitalyte Multivitamin Sachet" required>
+        </div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+          <div class="form-group">
+            <label>Type</label>
+            <select id="med_type" class="form-control">
+              <option value="Vitamin">Vitamin</option>
+              <option value="Antibiotic">Antibiotic</option>
+              <option value="Dewormer">Dewormer</option>
+              <option value="Disinfectant">Disinfectant</option>
+              <option value="Supplement">Supplement</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Current Stock</label>
+            <input type="number" id="med_stock" class="form-control" placeholder="50" required>
+          </div>
+        </div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+          <div class="form-group">
+            <label>Unit Cost (₦)</label>
+            <input type="number" id="med_cost" class="form-control" placeholder="1200">
+          </div>
+          <div class="form-group">
+            <label>Expiry Date</label>
+            <input type="date" id="med_expiry" class="form-control" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Supplier</label>
+          <input type="text" id="med_supplier" class="form-control" placeholder="Tufac Vet Services">
+        </div>
+        <button type="submit" class="btn-primary" style="width: 100%; justify-content: center;"><i class="fa-solid fa-save"></i> Save Medication</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="js/config.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    Auth.checkProtectedPage();
+    document.addEventListener('DOMContentLoaded', loadMeds);
+
+    async function loadMeds() {
+      const res = await Auth.fetchWithAuth('/api/medications');
+      const result = await res.json();
+      if (result.success) {
+        document.getElementById('medTableBody').innerHTML = result.data.map(m => {
+          const isLow = m.current_stock <= m.minimum_stock;
+          return `
+            <tr>
+              <td><strong>${m.name}</strong></td>
+              <td><span class="badge badge-info">${m.type}</span></td>
+              <td><strong>${m.current_stock} ${m.unit}</strong></td>
+              <td>${formatNaira(m.unit_cost)}</td>
+              <td>${m.supplier || '-'}</td>
+              <td>${m.expiry_date}</td>
+              <td><span class="badge ${isLow ? 'badge-danger' : 'badge-success'}">${isLow ? 'Low Stock' : 'Adequate'}</span></td>
+            </tr>
+          `;
+        }).join('');
+      }
+    }
+
+    document.getElementById('addMedForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const body = {
+        name: document.getElementById('med_name').value,
+        type: document.getElementById('med_type').value,
+        current_stock: document.getElementById('med_stock').value,
+        unit_cost: document.getElementById('med_cost').value,
+        expiry_date: document.getElementById('med_expiry').value,
+        supplier: document.getElementById('med_supplier').value
+      };
+
+      const res = await Auth.fetchWithAuth('/api/medications', { method: 'POST', body: JSON.stringify(body) });
+      const result = await res.json();
+      if (result.success) {
+        showToast(result.message, 'success');
+        closeModal('addMedModal');
+        loadMeds();
+      } else {
+        showToast(result.message, 'error');
+      }
+    });
+  </script>
+</body>
+</html>

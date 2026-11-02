@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Farm Equipment - APFMS</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/responsive.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+  <div class="app-container">
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-brand-icon"><i class="fa-solid fa-drumstick-bite"></i></div>
+        <div class="sidebar-brand-text"><h2>APFMS</h2><span>Poultry OS</span></div>
+      </div>
+      <ul class="sidebar-menu">
+        <li class="sidebar-menu-category">Main Console</li>
+        <li><a href="dashboard.html" class="sidebar-link"><i class="fa-solid fa-chart-pie"></i> <span>Dashboard</span></a></li>
+        <li class="sidebar-menu-category">Poultry & Production</li>
+        <li><a href="houses.html" class="sidebar-link"><i class="fa-solid fa-warehouse"></i> <span>Poultry Houses</span></a></li>
+        <li><a href="flocks.html" class="sidebar-link"><i class="fa-solid fa-kiwi-bird"></i> <span>Flocks / Batches</span></a></li>
+        <li><a href="activities.html" class="sidebar-link"><i class="fa-solid fa-calendar-check"></i> <span>Daily Activities</span></a></li>
+        <li><a href="mortality.html" class="sidebar-link"><i class="fa-solid fa-skull-crossbones"></i> <span>Mortality Log</span></a></li>
+        <li><a href="eggs.html" class="sidebar-link"><i class="fa-solid fa-egg"></i> <span>Egg Production</span></a></li>
+        <li class="sidebar-menu-category">Inventory & Health</li>
+        <li><a href="feed.html" class="sidebar-link"><i class="fa-solid fa-wheat-awn"></i> <span>Feed Inventory</span></a></li>
+        <li><a href="medications.html" class="sidebar-link"><i class="fa-solid fa-pills"></i> <span>Medications</span></a></li>
+        <li><a href="vaccinations.html" class="sidebar-link"><i class="fa-solid fa-syringe"></i> <span>Vaccinations</span></a></li>
+        <li><a href="inventory.html" class="sidebar-link"><i class="fa-solid fa-boxes-stacked"></i> <span>General Inventory</span></a></li>
+        <li><a href="equipment.html" class="sidebar-link active"><i class="fa-solid fa-screwdriver-wrench"></i> <span>Equipment</span></a></li>
+        <li class="sidebar-menu-category">Finance & Contacts</li>
+        <li><a href="sales.html" class="sidebar-link"><i class="fa-solid fa-cart-shopping"></i> <span>Sales Management</span></a></li>
+        <li><a href="expenses.html" class="sidebar-link"><i class="fa-solid fa-receipt"></i> <span>Farm Expenses</span></a></li>
+        <li><a href="customers.html" class="sidebar-link"><i class="fa-solid fa-users"></i> <span>Customers</span></a></li>
+        <li><a href="suppliers.html" class="sidebar-link"><i class="fa-solid fa-truck-field"></i> <span>Suppliers</span></a></li>
+        <li class="sidebar-menu-category">Analytics & Admin</li>
+        <li><a href="reports.html" class="sidebar-link"><i class="fa-solid fa-file-invoice-dollar"></i> <span>Reports Center</span></a></li>
+        <li><a href="notifications.html" class="sidebar-link"><i class="fa-solid fa-bell"></i> <span>Alerts Feed</span></a></li>
+        <li class="admin-only"><a href="users.html" class="sidebar-link"><i class="fa-solid fa-user-gear"></i> <span>User Management</span></a></li>
+        <li><a href="profile.html" class="sidebar-link"><i class="fa-solid fa-user-check"></i> <span>My Profile</span></a></li>
+      </ul>
+      <div class="sidebar-user">
+        <div class="user-avatar">U</div>
+        <div class="user-info"><h4 class="current-user-name">User</h4><span class="current-user-role">Role</span></div>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <div style="display: flex; align-items: center; gap: 1rem;">
+          <button id="sidebarToggle" class="topbar-toggle"><i class="fa-solid fa-bars"></i></button>
+          <div class="page-title"><h1>Equipment & Asset Management</h1></div>
+        </div>
+        <div class="topbar-actions">
+          <button onclick="openModal('addEqModal')" class="btn-primary"><i class="fa-solid fa-plus"></i> Register Equipment</button>
+        </div>
+      </header>
+
+      <div class="content-body">
+        <div class="card">
+          <div class="table-responsive">
+            <table class="data-table" id="eqTable">
+              <thead>
+                <tr>
+                  <th>Equipment Name</th>
+                  <th>Category</th>
+                  <th>Quantity</th>
+                  <th>Location</th>
+                  <th>Purchase Price (₦)</th>
+                  <th>Condition</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody id="eqTableBody">
+                <!-- Dynamically populated -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Add Equipment Modal -->
+  <div class="modal-backdrop" id="addEqModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3><i class="fa-solid fa-screwdriver-wrench"></i> Register Equipment</h3>
+        <button onclick="closeModal('addEqModal')" class="modal-close"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <form id="addEqForm">
+        <div class="form-group">
+          <label>Equipment Name</label>
+          <input type="text" id="eq_name" class="form-control" placeholder="Lister Petter 25kVA Diesel Generator" required>
+        </div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+          <div class="form-group">
+            <label>Category</label>
+            <select id="eq_category" class="form-control">
+              <option value="Generators">Generators</option>
+              <option value="Drinkers">Drinkers</option>
+              <option value="Feeders">Feeders</option>
+              <option value="Incubators">Incubators</option>
+              <option value="Fans">Fans</option>
+              <option value="Brooders">Brooders</option>
+              <option value="Water Pumps">Water Pumps</option>
+              <option value="Egg Trays">Egg Trays</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Quantity</label>
+            <input type="number" id="eq_quantity" class="form-control" placeholder="1" required>
+          </div>
+        </div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+          <div class="form-group">
+            <label>Purchase Price (₦)</label>
+            <input type="number" id="eq_price" class="form-control" placeholder="4200000">
+          </div>
+          <div class="form-group">
+            <label>Location</label>
+            <input type="text" id="eq_location" class="form-control" placeholder="Power House">
+          </div>
+        </div>
+        <button type="submit" class="btn-primary" style="width: 100%; justify-content: center;"><i class="fa-solid fa-save"></i> Save Equipment</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="js/config.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    Auth.checkProtectedPage();
+    document.addEventListener('DOMContentLoaded', loadEq);
+
+    async function loadEq() {
+      const res = await Auth.fetchWithAuth('/api/equipment');
+      const result = await res.json();
+      if (result.success) {
+        document.getElementById('eqTableBody').innerHTML = result.data.map(e => `
+          <tr>
+            <td><strong>${e.name}</strong></td>
+            <td><span class="badge badge-info">${e.category}</span></td>
+            <td>${e.quantity} pcs</td>
+            <td>${e.location || '-'}</td>
+            <td>${formatNaira(e.purchase_price)}</td>
+            <td><span class="badge badge-success">${e.condition}</span></td>
+            <td><span class="badge badge-success">${e.status}</span></td>
+          </tr>
+        `).join('');
+      }
+    }
+
+    document.getElementById('addEqForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const body = {
+        name: document.getElementById('eq_name').value,
+        category: document.getElementById('eq_category').value,
+        quantity: document.getElementById('eq_quantity').value,
+        purchase_price: document.getElementById('eq_price').value,
+        location: document.getElementById('eq_location').value
+      };
+
+      const res = await Auth.fetchWithAuth('/api/equipment', { method: 'POST', body: JSON.stringify(body) });
+      const result = await res.json();
+      if (result.success) {
+        showToast(result.message, 'success');
+        closeModal('addEqModal');
+        loadEq();
+      } else {
+        showToast(result.message, 'error');
+      }
+    });
+  </script>
+</body>
+</html>

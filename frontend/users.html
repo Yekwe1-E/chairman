@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Management - APFMS</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/responsive.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+  <div class="app-container">
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-brand-icon"><i class="fa-solid fa-drumstick-bite"></i></div>
+        <div class="sidebar-brand-text"><h2>APFMS</h2><span>Poultry OS</span></div>
+      </div>
+      <ul class="sidebar-menu">
+        <li class="sidebar-menu-category">Main Console</li>
+        <li><a href="dashboard.html" class="sidebar-link"><i class="fa-solid fa-chart-pie"></i> <span>Dashboard</span></a></li>
+        <li class="sidebar-menu-category">Poultry & Production</li>
+        <li><a href="houses.html" class="sidebar-link"><i class="fa-solid fa-warehouse"></i> <span>Poultry Houses</span></a></li>
+        <li><a href="flocks.html" class="sidebar-link"><i class="fa-solid fa-kiwi-bird"></i> <span>Flocks / Batches</span></a></li>
+        <li><a href="activities.html" class="sidebar-link"><i class="fa-solid fa-calendar-check"></i> <span>Daily Activities</span></a></li>
+        <li><a href="mortality.html" class="sidebar-link"><i class="fa-solid fa-skull-crossbones"></i> <span>Mortality Log</span></a></li>
+        <li><a href="eggs.html" class="sidebar-link"><i class="fa-solid fa-egg"></i> <span>Egg Production</span></a></li>
+        <li class="sidebar-menu-category">Inventory & Health</li>
+        <li><a href="feed.html" class="sidebar-link"><i class="fa-solid fa-wheat-awn"></i> <span>Feed Inventory</span></a></li>
+        <li><a href="medications.html" class="sidebar-link"><i class="fa-solid fa-pills"></i> <span>Medications</span></a></li>
+        <li><a href="vaccinations.html" class="sidebar-link"><i class="fa-solid fa-syringe"></i> <span>Vaccinations</span></a></li>
+        <li><a href="inventory.html" class="sidebar-link"><i class="fa-solid fa-boxes-stacked"></i> <span>General Inventory</span></a></li>
+        <li><a href="equipment.html" class="sidebar-link"><i class="fa-solid fa-screwdriver-wrench"></i> <span>Equipment</span></a></li>
+        <li class="sidebar-menu-category">Finance & Contacts</li>
+        <li><a href="sales.html" class="sidebar-link"><i class="fa-solid fa-cart-shopping"></i> <span>Sales Management</span></a></li>
+        <li><a href="expenses.html" class="sidebar-link"><i class="fa-solid fa-receipt"></i> <span>Farm Expenses</span></a></li>
+        <li><a href="customers.html" class="sidebar-link"><i class="fa-solid fa-users"></i> <span>Customers</span></a></li>
+        <li><a href="suppliers.html" class="sidebar-link"><i class="fa-solid fa-truck-field"></i> <span>Suppliers</span></a></li>
+        <li class="sidebar-menu-category">Analytics & Admin</li>
+        <li><a href="reports.html" class="sidebar-link"><i class="fa-solid fa-file-invoice-dollar"></i> <span>Reports Center</span></a></li>
+        <li><a href="notifications.html" class="sidebar-link"><i class="fa-solid fa-bell"></i> <span>Alerts Feed</span></a></li>
+        <li><a href="users.html" class="sidebar-link active"><i class="fa-solid fa-user-gear"></i> <span>User Management</span></a></li>
+        <li><a href="profile.html" class="sidebar-link"><i class="fa-solid fa-user-check"></i> <span>My Profile</span></a></li>
+      </ul>
+      <div class="sidebar-user">
+        <div class="user-avatar">U</div>
+        <div class="user-info"><h4 class="current-user-name">User</h4><span class="current-user-role">Role</span></div>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <div style="display: flex; align-items: center; gap: 1rem;">
+          <button id="sidebarToggle" class="topbar-toggle"><i class="fa-solid fa-bars"></i></button>
+          <div class="page-title"><h1>System User Accounts</h1></div>
+        </div>
+        <div class="topbar-actions">
+          <a href="register.html" class="btn-primary"><i class="fa-solid fa-user-plus"></i> Create New User</a>
+        </div>
+      </header>
+
+      <div class="content-body">
+        <div class="card" style="margin-bottom: 1.5rem; background: var(--accent-amber-light); border: 1px solid var(--accent-amber);">
+          <p style="font-size: 0.88rem; color: var(--accent-amber);"><i class="fa-solid fa-shield-halved"></i> <strong>Administrator Access Only:</strong> This panel lists all registered system users. Only administrators can view and manage user accounts.</p>
+        </div>
+
+        <div class="card">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+            <input type="text" onkeyup="filterTable('userSearch', 'usersTable')" id="userSearch" class="form-control" style="max-width: 300px;" placeholder="Search users...">
+          </div>
+          <div class="table-responsive">
+            <table class="data-table" id="usersTable">
+              <thead>
+                <tr>
+                  <th>Full Name</th>
+                  <th>Email Address</th>
+                  <th>Phone Number</th>
+                  <th>Assigned Role</th>
+                  <th>Account Status</th>
+                  <th>Date Registered</th>
+                </tr>
+              </thead>
+              <tbody id="usersTableBody">
+                <!-- Dynamically populated -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="js/config.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    Auth.checkProtectedPage();
+    document.addEventListener('DOMContentLoaded', () => {
+      const user = Auth.getUser();
+      if (user && user.role !== 'admin') {
+        showToast('Access denied. Administrator role required.', 'error');
+        setTimeout(() => window.location.href = 'dashboard.html', 1500);
+        return;
+      }
+      loadUsers();
+    });
+
+    async function loadUsers() {
+      try {
+        const res = await Auth.fetchWithAuth('/api/auth/users');
+        const result = await res.json();
+        if (!result.success) {
+          showToast(result.message || 'Failed to load users', 'error');
+          return;
+        }
+        const roleColors = { admin: 'badge-danger', manager: 'badge-info', worker: 'badge-warning', finance: 'badge-success' };
+        document.getElementById('usersTableBody').innerHTML = result.data.map(u => `
+          <tr>
+            <td>
+              <div style="display: flex; align-items: center; gap: 0.75rem;">
+                <div style="width: 34px; height: 34px; border-radius: 50%; background: var(--primary-main); color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.8rem; flex-shrink: 0;">
+                  ${u.full_name ? u.full_name.split(' ').map(n => n[0]).join('').toUpperCase().slice(0,2) : 'U'}
+                </div>
+                <strong>${u.full_name}</strong>
+              </div>
+            </td>
+            <td>${u.email}</td>
+            <td>${u.phone || 'N/A'}</td>
+            <td><span class="badge ${roleColors[u.role] || 'badge-info'}">${(u.role || 'N/A').toUpperCase()}</span></td>
+            <td><span class="badge ${u.status === 'active' ? 'badge-success' : 'badge-danger'}">${u.status || 'active'}</span></td>
+            <td>${u.created_at ? new Date(u.created_at).toLocaleDateString() : 'N/A'}</td>
+          </tr>
+        `).join('');
+      } catch (err) {
+        showToast('Error loading user accounts.', 'error');
+      }
+    }
+  </script>
+</body>
+</html>

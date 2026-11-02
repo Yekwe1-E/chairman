@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Daily Activities - APFMS</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/responsive.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+  <div class="app-container">
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-brand-icon"><i class="fa-solid fa-drumstick-bite"></i></div>
+        <div class="sidebar-brand-text"><h2>APFMS</h2><span>Poultry OS</span></div>
+      </div>
+      <ul class="sidebar-menu">
+        <li class="sidebar-menu-category">Main Console</li>
+        <li><a href="dashboard.html" class="sidebar-link"><i class="fa-solid fa-chart-pie"></i> <span>Dashboard</span></a></li>
+        <li class="sidebar-menu-category">Poultry & Production</li>
+        <li><a href="houses.html" class="sidebar-link"><i class="fa-solid fa-warehouse"></i> <span>Poultry Houses</span></a></li>
+        <li><a href="flocks.html" class="sidebar-link"><i class="fa-solid fa-kiwi-bird"></i> <span>Flocks / Batches</span></a></li>
+        <li><a href="activities.html" class="sidebar-link active"><i class="fa-solid fa-calendar-check"></i> <span>Daily Activities</span></a></li>
+        <li><a href="mortality.html" class="sidebar-link"><i class="fa-solid fa-skull-crossbones"></i> <span>Mortality Log</span></a></li>
+        <li><a href="eggs.html" class="sidebar-link"><i class="fa-solid fa-egg"></i> <span>Egg Production</span></a></li>
+        <li class="sidebar-menu-category">Inventory & Health</li>
+        <li><a href="feed.html" class="sidebar-link"><i class="fa-solid fa-wheat-awn"></i> <span>Feed Inventory</span></a></li>
+        <li><a href="medications.html" class="sidebar-link"><i class="fa-solid fa-pills"></i> <span>Medications</span></a></li>
+        <li><a href="vaccinations.html" class="sidebar-link"><i class="fa-solid fa-syringe"></i> <span>Vaccinations</span></a></li>
+        <li><a href="inventory.html" class="sidebar-link"><i class="fa-solid fa-boxes-stacked"></i> <span>General Inventory</span></a></li>
+        <li><a href="equipment.html" class="sidebar-link"><i class="fa-solid fa-screwdriver-wrench"></i> <span>Equipment</span></a></li>
+        <li class="sidebar-menu-category">Finance & Contacts</li>
+        <li><a href="sales.html" class="sidebar-link"><i class="fa-solid fa-cart-shopping"></i> <span>Sales Management</span></a></li>
+        <li><a href="expenses.html" class="sidebar-link"><i class="fa-solid fa-receipt"></i> <span>Farm Expenses</span></a></li>
+        <li><a href="customers.html" class="sidebar-link"><i class="fa-solid fa-users"></i> <span>Customers</span></a></li>
+        <li><a href="suppliers.html" class="sidebar-link"><i class="fa-solid fa-truck-field"></i> <span>Suppliers</span></a></li>
+        <li class="sidebar-menu-category">Analytics & Admin</li>
+        <li><a href="reports.html" class="sidebar-link"><i class="fa-solid fa-file-invoice-dollar"></i> <span>Reports Center</span></a></li>
+        <li><a href="notifications.html" class="sidebar-link"><i class="fa-solid fa-bell"></i> <span>Alerts Feed</span></a></li>
+        <li class="admin-only"><a href="users.html" class="sidebar-link"><i class="fa-solid fa-user-gear"></i> <span>User Management</span></a></li>
+        <li><a href="profile.html" class="sidebar-link"><i class="fa-solid fa-user-check"></i> <span>My Profile</span></a></li>
+      </ul>
+      <div class="sidebar-user">
+        <div class="user-avatar">U</div>
+        <div class="user-info"><h4 class="current-user-name">User</h4><span class="current-user-role">Role</span></div>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <div style="display: flex; align-items: center; gap: 1rem;">
+          <button id="sidebarToggle" class="topbar-toggle"><i class="fa-solid fa-bars"></i></button>
+          <div class="page-title"><h1>Daily Farm Activities</h1></div>
+        </div>
+        <div class="topbar-actions">
+          <button onclick="openModal('addActivityModal')" class="btn-primary"><i class="fa-solid fa-plus"></i> Record Daily Activity</button>
+        </div>
+      </header>
+
+      <div class="content-body">
+        <div class="card">
+          <div class="table-responsive">
+            <table class="data-table" id="activitiesTable">
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Flock Batch</th>
+                  <th>Feed Consumed (kg)</th>
+                  <th>Water Consumed (L)</th>
+                  <th>Mortality</th>
+                  <th>Eggs Collected</th>
+                  <th>Notes</th>
+                  <th>Recorded By</th>
+                </tr>
+              </thead>
+              <tbody id="activitiesTableBody">
+                <!-- Dynamically populated -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Add Activity Modal -->
+  <div class="modal-backdrop" id="addActivityModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3><i class="fa-solid fa-calendar-check"></i> Record Daily Activity Log</h3>
+        <button onclick="closeModal('addActivityModal')" class="modal-close"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <form id="addActivityForm">
+        <div class="form-group">
+          <label>Activity Date</label>
+          <input type="date" id="activity_date" class="form-control" required>
+        </div>
+        <div class="form-group">
+          <label>Flock Batch</label>
+          <select id="flock_id" class="form-control" required></select>
+        </div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+          <div class="form-group">
+            <label>Feed Consumed (kg)</label>
+            <input type="number" step="0.1" id="feed_consumed_kg" class="form-control" placeholder="240">
+          </div>
+          <div class="form-group">
+            <label>Water Consumed (Liters)</label>
+            <input type="number" step="0.1" id="water_consumed_liters" class="form-control" placeholder="480">
+          </div>
+        </div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+          <div class="form-group">
+            <label>Mortality Count</label>
+            <input type="number" id="mortality_count" class="form-control" placeholder="0">
+          </div>
+          <div class="form-group">
+            <label>Eggs Collected</label>
+            <input type="number" id="eggs_collected" class="form-control" placeholder="0">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Notes / Observations</label>
+          <textarea id="act_notes" class="form-control" rows="2"></textarea>
+        </div>
+        <button type="submit" class="btn-primary" style="width: 100%; justify-content: center;"><i class="fa-solid fa-save"></i> Save Activity Log</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="js/config.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    Auth.checkProtectedPage();
+    document.addEventListener('DOMContentLoaded', () => {
+      loadActivities();
+      loadFlockDropdown();
+      document.getElementById('activity_date').value = new Date().toISOString().split('T')[0];
+    });
+
+    async function loadActivities() {
+      const res = await Auth.fetchWithAuth('/api/activities');
+      const result = await res.json();
+      if (result.success) {
+        document.getElementById('activitiesTableBody').innerHTML = result.data.map(a => `
+          <tr>
+            <td><strong>${a.activity_date}</strong></td>
+            <td><span class="badge badge-info">${a.batch_number}</span></td>
+            <td>${a.feed_consumed_kg} kg</td>
+            <td>${a.water_consumed_liters} L</td>
+            <td><span class="badge ${a.mortality_count > 0 ? 'badge-danger' : 'badge-success'}">${a.mortality_count}</span></td>
+            <td><strong>${a.eggs_collected.toLocaleString()}</strong></td>
+            <td>${a.notes || '-'}</td>
+            <td>${a.recorded_by_name || 'Staff'}</td>
+          </tr>
+        `).join('');
+      }
+    }
+
+    async function loadFlockDropdown() {
+      const res = await Auth.fetchWithAuth('/api/flocks');
+      const result = await res.json();
+      if (result.success) {
+        document.getElementById('flock_id').innerHTML = result.data.map(f => `<option value="${f.id}">${f.batch_number} - ${f.breed}</option>`).join('');
+      }
+    }
+
+    document.getElementById('addActivityForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const body = {
+        activity_date: document.getElementById('activity_date').value,
+        flock_id: document.getElementById('flock_id').value,
+        feed_consumed_kg: document.getElementById('feed_consumed_kg').value,
+        water_consumed_liters: document.getElementById('water_consumed_liters').value,
+        mortality_count: document.getElementById('mortality_count').value,
+        eggs_collected: document.getElementById('eggs_collected').value,
+        notes: document.getElementById('act_notes').value
+      };
+
+      const res = await Auth.fetchWithAuth('/api/activities', { method: 'POST', body: JSON.stringify(body) });
+      const result = await res.json();
+      if (result.success) {
+        showToast(result.message, 'success');
+        closeModal('addActivityModal');
+        loadActivities();
+      } else {
+        showToast(result.message, 'error');
+      }
+    });
+  </script>
+</body>
+</html>

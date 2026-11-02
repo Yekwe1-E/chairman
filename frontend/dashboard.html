@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard - APFMS Poultry System</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/dashboard.css">
+  <link rel="stylesheet" href="css/responsive.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <div class="app-container">
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-brand-icon"><i class="fa-solid fa-drumstick-bite"></i></div>
+        <div class="sidebar-brand-text">
+          <h2>APFMS</h2>
+          <span>Poultry OS v1.0</span>
+        </div>
+      </div>
+
+      <ul class="sidebar-menu">
+        <li class="sidebar-menu-category">Main Console</li>
+        <li><a href="dashboard.html" class="sidebar-link active"><i class="fa-solid fa-chart-pie"></i> <span>Dashboard</span></a></li>
+
+        <li class="sidebar-menu-category">Poultry & Production</li>
+        <li><a href="houses.html" class="sidebar-link"><i class="fa-solid fa-warehouse"></i> <span>Poultry Houses</span></a></li>
+        <li><a href="flocks.html" class="sidebar-link"><i class="fa-solid fa-kiwi-bird"></i> <span>Flocks / Batches</span></a></li>
+        <li><a href="activities.html" class="sidebar-link"><i class="fa-solid fa-calendar-check"></i> <span>Daily Activities</span></a></li>
+        <li><a href="mortality.html" class="sidebar-link"><i class="fa-solid fa-skull-crossbones"></i> <span>Mortality Log</span></a></li>
+        <li><a href="eggs.html" class="sidebar-link"><i class="fa-solid fa-egg"></i> <span>Egg Production</span></a></li>
+
+        <li class="sidebar-menu-category">Inventory & Health</li>
+        <li><a href="feed.html" class="sidebar-link"><i class="fa-solid fa-wheat-awn"></i> <span>Feed Inventory</span></a></li>
+        <li><a href="medications.html" class="sidebar-link"><i class="fa-solid fa-pills"></i> <span>Medications</span></a></li>
+        <li><a href="vaccinations.html" class="sidebar-link"><i class="fa-solid fa-syringe"></i> <span>Vaccinations</span></a></li>
+        <li><a href="inventory.html" class="sidebar-link"><i class="fa-solid fa-boxes-stacked"></i> <span>General Inventory</span></a></li>
+        <li><a href="equipment.html" class="sidebar-link"><i class="fa-solid fa-screwdriver-wrench"></i> <span>Equipment</span></a></li>
+
+        <li class="sidebar-menu-category">Finance & Contacts</li>
+        <li><a href="sales.html" class="sidebar-link"><i class="fa-solid fa-cart-shopping"></i> <span>Sales Management</span></a></li>
+        <li><a href="expenses.html" class="sidebar-link"><i class="fa-solid fa-receipt"></i> <span>Farm Expenses</span></a></li>
+        <li><a href="customers.html" class="sidebar-link"><i class="fa-solid fa-users"></i> <span>Customers</span></a></li>
+        <li><a href="suppliers.html" class="sidebar-link"><i class="fa-solid fa-truck-field"></i> <span>Suppliers</span></a></li>
+
+        <li class="sidebar-menu-category">Analytics & Admin</li>
+        <li><a href="reports.html" class="sidebar-link"><i class="fa-solid fa-file-invoice-dollar"></i> <span>Reports Center</span></a></li>
+        <li><a href="notifications.html" class="sidebar-link"><i class="fa-solid fa-bell"></i> <span>Alerts Feed</span></a></li>
+        <li class="admin-only"><a href="users.html" class="sidebar-link"><i class="fa-solid fa-user-gear"></i> <span>User Management</span></a></li>
+        <li><a href="profile.html" class="sidebar-link"><i class="fa-solid fa-user-check"></i> <span>My Profile</span></a></li>
+      </ul>
+
+      <div class="sidebar-user">
+        <div class="user-avatar">U</div>
+        <div class="user-info">
+          <h4 class="current-user-name">User Account</h4>
+          <span class="current-user-role">Role</span>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <!-- Top Navigation -->
+      <header class="topbar">
+        <div style="display: flex; align-items: center; gap: 1rem;">
+          <button id="sidebarToggle" class="topbar-toggle"><i class="fa-solid fa-bars"></i></button>
+          <div class="page-title">
+            <h1>Farm Command Dashboard</h1>
+          </div>
+        </div>
+
+        <div class="topbar-actions">
+          <a href="notifications.html" class="notif-badge-btn">
+            <i class="fa-solid fa-bell"></i>
+            <div class="badge-dot"></div>
+          </a>
+          <button onclick="Auth.logout()" class="btn-logout">
+            <i class="fa-solid fa-right-from-bracket"></i> Logout
+          </button>
+        </div>
+      </header>
+
+      <!-- Content Body -->
+      <div class="content-body">
+        <!-- Mobile Greeting Header (Reference Image Pattern) -->
+        <div class="mobile-greeting-bar mobile-only">
+          <div class="mobile-greeting-text">
+            <span>Good morning,</span>
+            <h2 class="current-user-name">Farm Manager</h2>
+          </div>
+          <a href="notifications.html" class="mobile-header-avatar">
+            <i class="fa-solid fa-bell"></i>
+          </a>
+        </div>
+
+        <!-- Mobile Cards Carousel (Reference Image Pattern: Lime Highlight, Dark Card, White Card) -->
+        <div class="mobile-cards-section mobile-only">
+          <div class="mobile-section-header">
+            <h3>Your Farm Summary</h3>
+            <a href="reports.html">Reports <i class="fa-solid fa-arrow-right"></i></a>
+          </div>
+          <div class="mobile-cards-carousel">
+            <!-- Lime Feature Highlight Card (Lime green gradient like Neobank card) -->
+            <div class="mobile-card mobile-card-lime">
+              <i class="fa-solid fa-chart-line mobile-card-watermark"></i>
+              <div class="card-subtext">Net Estimated Profit</div>
+              <div class="card-val" id="mobileKpiProfit">₦0.00</div>
+              <a href="sales.html" class="btn-card-action">
+                <i class="fa-solid fa-plus"></i> Record Sale
+              </a>
+            </div>
+
+            <!-- Dark Card Variant -->
+            <div class="mobile-card mobile-card-dark">
+              <i class="fa-solid fa-kiwi-bird mobile-card-watermark"></i>
+              <div class="card-subtext">Live Flock Population</div>
+              <div class="card-val" id="mobileKpiTotalBirds">0 Birds</div>
+              <a href="flocks.html" class="btn-card-action">
+                <i class="fa-solid fa-eye"></i> View Flocks
+              </a>
+            </div>
+
+            <!-- White Card Variant -->
+            <div class="mobile-card mobile-card-white">
+              <i class="fa-solid fa-egg mobile-card-watermark"></i>
+              <div class="card-subtext">Today's Egg Production</div>
+              <div class="card-val" id="mobileKpiEggs">0 Crates</div>
+              <a href="eggs.html" class="btn-card-action">
+                <i class="fa-solid fa-calendar-check"></i> Egg Journal
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Desktop KPI Metrics Grid -->
+        <div class="dashboard-grid desktop-only">
+          <div class="kpi-card success">
+            <div class="kpi-icon"><i class="fa-solid fa-kiwi-bird"></i></div>
+            <div class="kpi-details">
+              <span>Total Live Birds</span>
+              <h3 id="kpiTotalBirds">0</h3>
+            </div>
+          </div>
+
+          <div class="kpi-card info">
+            <div class="kpi-icon"><i class="fa-solid fa-layer-group"></i></div>
+            <div class="kpi-details">
+              <span>Active Flocks</span>
+              <h3 id="kpiActiveFlocks">0</h3>
+            </div>
+          </div>
+
+          <div class="kpi-card">
+            <div class="kpi-icon"><i class="fa-solid fa-warehouse"></i></div>
+            <div class="kpi-details">
+              <span>Poultry Houses</span>
+              <h3 id="kpiPoultryHouses">0</h3>
+            </div>
+          </div>
+
+          <div class="kpi-card danger">
+            <div class="kpi-icon"><i class="fa-solid fa-skull-crossbones"></i></div>
+            <div class="kpi-details">
+              <span>Today's Mortality</span>
+              <h3 id="kpiTodaysMortality">0</h3>
+            </div>
+          </div>
+
+          <div class="kpi-card amber">
+            <div class="kpi-icon"><i class="fa-solid fa-egg"></i></div>
+            <div class="kpi-details">
+              <span>Today's Egg Yield</span>
+              <h3 id="kpiTodaysEggs">0</h3>
+            </div>
+          </div>
+
+          <div class="kpi-card">
+            <div class="kpi-icon"><i class="fa-solid fa-wheat-awn"></i></div>
+            <div class="kpi-details">
+              <span>Feed Inventory</span>
+              <h3 id="kpiFeedStock">0 bags</h3>
+            </div>
+          </div>
+
+          <div class="kpi-card success">
+            <div class="kpi-icon"><i class="fa-solid fa-sack-dollar"></i></div>
+            <div class="kpi-details">
+              <span>Total Sales Revenue</span>
+              <h3 id="kpiMonthlyRevenue">₦0.00</h3>
+            </div>
+          </div>
+
+          <div class="kpi-card danger">
+            <div class="kpi-icon"><i class="fa-solid fa-receipt"></i></div>
+            <div class="kpi-details">
+              <span>Farm Expenses</span>
+              <h3 id="kpiMonthlyExpenses">₦0.00</h3>
+            </div>
+          </div>
+
+          <div class="kpi-card success">
+            <div class="kpi-icon"><i class="fa-solid fa-chart-line"></i></div>
+            <div class="kpi-details">
+              <span>Net Estimated Profit</span>
+              <h3 id="kpiEstimatedProfit">₦0.00</h3>
+            </div>
+          </div>
+        </div>
+
+        <!-- Charts Section -->
+        <div class="charts-grid">
+          <!-- Egg Production Line Chart -->
+          <div class="chart-card">
+            <div class="chart-card-header">
+              <h3><i class="fa-solid fa-chart-line" style="color: var(--primary-main);"></i> Egg Production Yield (Daily)</h3>
+              <span class="badge badge-success">Layers</span>
+            </div>
+            <div class="chart-container">
+              <canvas id="eggProductionChart"></canvas>
+            </div>
+          </div>
+
+          <!-- Mortality Bar Chart -->
+          <div class="chart-card">
+            <div class="chart-card-header">
+              <h3><i class="fa-solid fa-chart-column" style="color: var(--color-danger);"></i> Mortality Trend</h3>
+              <span class="badge badge-danger">Losses</span>
+            </div>
+            <div class="chart-container">
+              <canvas id="mortalityChart"></canvas>
+            </div>
+          </div>
+
+          <!-- Feed Consumption Doughnut Chart -->
+          <div class="chart-card">
+            <div class="chart-card-header">
+              <h3><i class="fa-solid fa-pie-chart" style="color: var(--accent-amber);"></i> Feed Stock Distribution</h3>
+              <span class="badge badge-warning">Rations</span>
+            </div>
+            <div class="chart-container">
+              <canvas id="feedConsumptionChart"></canvas>
+            </div>
+          </div>
+
+          <!-- Financial Performance Chart -->
+          <div class="chart-card">
+            <div class="chart-card-header">
+              <h3><i class="fa-solid fa-coins" style="color: var(--color-success);"></i> Financial Overview (Revenue vs Expenses)</h3>
+              <span class="badge badge-info">Financials (₦)</span>
+            </div>
+            <div class="chart-container">
+              <canvas id="financialChart"></canvas>
+            </div>
+          </div>
+        </div>
+
+        <!-- Mobile Stacked Action List (Reference Image Pattern: "Add money to Neobank") -->
+        <div class="mobile-action-group mobile-only">
+          <div class="mobile-section-header">
+            <h3>Quick Farm Operations</h3>
+          </div>
+          
+          <a href="activities.html" class="mobile-action-card">
+            <div class="mobile-action-left">
+              <div class="mobile-action-icon emerald"><i class="fa-solid fa-calendar-check"></i></div>
+              <div class="mobile-action-info">
+                <h4>Record Daily Activity</h4>
+                <p>Log feed consumption, egg collection & mortality</p>
+              </div>
+            </div>
+            <i class="fa-solid fa-chevron-right mobile-action-chevron"></i>
+          </a>
+
+          <a href="sales.html" class="mobile-action-card">
+            <div class="mobile-action-left">
+              <div class="mobile-action-icon indigo"><i class="fa-solid fa-cart-plus"></i></div>
+              <div class="mobile-action-info">
+                <h4>Record New Sale</h4>
+                <p>Generate customer invoices and egg/bird sales</p>
+              </div>
+            </div>
+            <i class="fa-solid fa-chevron-right mobile-action-chevron"></i>
+          </a>
+
+          <a href="mortality.html" class="mobile-action-card">
+            <div class="mobile-action-left">
+              <div class="mobile-action-icon rose"><i class="fa-solid fa-skull"></i></div>
+              <div class="mobile-action-info">
+                <h4>Log Mortality Event</h4>
+                <p>Track flock losses and cause of death</p>
+              </div>
+            </div>
+            <i class="fa-solid fa-chevron-right mobile-action-chevron"></i>
+          </a>
+
+          <a href="expenses.html" class="mobile-action-card">
+            <div class="mobile-action-left">
+              <div class="mobile-action-icon amber"><i class="fa-solid fa-receipt"></i></div>
+              <div class="mobile-action-info">
+                <h4>Log Farm Expenses</h4>
+                <p>Record feed purchases, utilities and payroll</p>
+              </div>
+            </div>
+            <i class="fa-solid fa-chevron-right mobile-action-chevron"></i>
+          </a>
+        </div>
+
+        <!-- Bottom Grid: Quick Actions & Live Activity Stream -->
+        <div class="dashboard-bottom-grid">
+          <!-- Quick Operations Shortcuts -->
+          <div class="card desktop-only">
+            <h3 style="margin-bottom: 1rem;"><i class="fa-solid fa-bolt" style="color: var(--accent-amber);"></i> Quick Operational Actions</h3>
+            <div style="display: flex; flex-wrap: wrap; gap: 0.75rem;">
+              <a href="activities.html" class="btn-primary"><i class="fa-solid fa-plus"></i> Record Daily Activity</a>
+              <a href="mortality.html" class="btn-secondary"><i class="fa-solid fa-skull"></i> Log Mortality</a>
+              <a href="eggs.html" class="btn-secondary"><i class="fa-solid fa-egg"></i> Log Eggs</a>
+              <a href="feed.html" class="btn-secondary"><i class="fa-solid fa-wheat-awn"></i> Record Feed Usage</a>
+              <a href="sales.html" class="btn-secondary"><i class="fa-solid fa-cart-plus"></i> Record Sale</a>
+              <a href="expenses.html" class="btn-secondary"><i class="fa-solid fa-minus"></i> Record Expense</a>
+            </div>
+          </div>
+
+          <!-- System Notifications Summary -->
+          <div class="card">
+            <h3 style="margin-bottom: 1rem;"><i class="fa-solid fa-bell" style="color: var(--color-info);"></i> System Alerts</h3>
+            <ul class="activity-list">
+              <li class="activity-item">
+                <div class="activity-icon" style="background: #fef3c7; color: var(--accent-amber);"><i class="fa-solid fa-triangle-exclamation"></i></div>
+                <div class="activity-text">
+                  <p>Chikun Chick Starter reorder alert (25 bags left)</p>
+                  <span>2 hours ago</span>
+                </div>
+              </li>
+              <li class="activity-item">
+                <div class="activity-icon" style="background: #dbeafe; color: var(--color-info);"><i class="fa-solid fa-syringe"></i></div>
+                <div class="activity-text">
+                  <p>Upcoming Gumboro Vaccination due for Batch FL-2026-003</p>
+                  <span>5 hours ago</span>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="js/config.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/dashboard.js"></script>
+</body>
+</html>

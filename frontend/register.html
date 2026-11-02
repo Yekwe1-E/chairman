@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register Account - APFMS</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    body {
+      background: linear-gradient(135deg, #0f172a 0%, #1b4332 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+    }
+    .register-card {
+      background: #ffffff;
+      width: 100%;
+      max-width: 480px;
+      border-radius: var(--radius-lg);
+      padding: 2.25rem;
+      box-shadow: 0 20px 25px -5px rgba(0,0,0,0.3);
+    }
+  </style>
+</head>
+<body>
+  <div class="register-card">
+    <div style="text-align: center; margin-bottom: 1.5rem;">
+      <div style="width: 50px; height: 50px; background: #2d6a4f; color: #fff; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin: 0 auto 0.75rem;">
+        <i class="fa-solid fa-user-plus"></i>
+      </div>
+      <h2>Create Staff Account</h2>
+      <p style="font-size: 0.85rem; color: var(--text-muted);">Register to access farm management tools</p>
+    </div>
+
+    <form id="registerForm">
+      <div class="form-group">
+        <label for="full_name">Full Name</label>
+        <input type="text" id="full_name" class="form-control" placeholder="Dr. Samuel Akpan" required>
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email Address</label>
+        <input type="email" id="email" class="form-control" placeholder="samuel@farm.com" required>
+      </div>
+
+      <div class="form-group">
+        <label for="phone">Phone Number</label>
+        <input type="tel" id="phone" class="form-control" placeholder="+2348012345678">
+      </div>
+
+      <div class="form-group">
+        <label for="role">Assign Role</label>
+        <select id="role" class="form-control">
+          <option value="worker">Farm Worker</option>
+          <option value="manager">Farm Manager</option>
+          <option value="finance">Finance Officer</option>
+          <option value="admin">Administrator</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" class="form-control" placeholder="••••••••" required>
+      </div>
+
+      <button type="submit" class="btn-primary" style="width: 100%; justify-content: center; padding: 0.75rem;"><i class="fa-solid fa-check"></i> Register Account</button>
+    </form>
+
+    <p style="text-align: center; margin-top: 1.25rem; font-size: 0.85rem; color: var(--text-muted);">
+      Already have an account? <a href="login.html" style="color: var(--primary-main); font-weight: 600;">Sign in</a>
+    </p>
+  </div>
+
+  <script src="js/config.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    document.getElementById('registerForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const full_name = document.getElementById('full_name').value;
+      const email = document.getElementById('email').value;
+      const phone = document.getElementById('phone').value;
+      const role = document.getElementById('role').value;
+      const password = document.getElementById('password').value;
+
+      try {
+        const res = await fetch('/api/auth/register', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ full_name, email, phone, role, password })
+        });
+        const result = await res.json();
+
+        if (result.success) {
+          Auth.setSession(result.token, result.user);
+          showToast('Account registered successfully!', 'success');
+          setTimeout(() => { window.location.href = 'dashboard.html'; }, 1000);
+        } else {
+          showToast(result.message || 'Registration failed', 'error');
+        }
+      } catch (err) {
+        showToast('Server connection error.', 'error');
+      }
+    });
+  </script>
+</body>
+</html>

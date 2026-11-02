@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Profile - APFMS</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/responsive.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+  <div class="app-container">
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-brand-icon"><i class="fa-solid fa-drumstick-bite"></i></div>
+        <div class="sidebar-brand-text"><h2>APFMS</h2><span>Poultry OS</span></div>
+      </div>
+      <ul class="sidebar-menu">
+        <li class="sidebar-menu-category">Main Console</li>
+        <li><a href="dashboard.html" class="sidebar-link"><i class="fa-solid fa-chart-pie"></i> <span>Dashboard</span></a></li>
+        <li class="sidebar-menu-category">Poultry & Production</li>
+        <li><a href="houses.html" class="sidebar-link"><i class="fa-solid fa-warehouse"></i> <span>Poultry Houses</span></a></li>
+        <li><a href="flocks.html" class="sidebar-link"><i class="fa-solid fa-kiwi-bird"></i> <span>Flocks / Batches</span></a></li>
+        <li><a href="activities.html" class="sidebar-link"><i class="fa-solid fa-calendar-check"></i> <span>Daily Activities</span></a></li>
+        <li><a href="mortality.html" class="sidebar-link"><i class="fa-solid fa-skull-crossbones"></i> <span>Mortality Log</span></a></li>
+        <li><a href="eggs.html" class="sidebar-link"><i class="fa-solid fa-egg"></i> <span>Egg Production</span></a></li>
+        <li class="sidebar-menu-category">Inventory & Health</li>
+        <li><a href="feed.html" class="sidebar-link"><i class="fa-solid fa-wheat-awn"></i> <span>Feed Inventory</span></a></li>
+        <li><a href="medications.html" class="sidebar-link"><i class="fa-solid fa-pills"></i> <span>Medications</span></a></li>
+        <li><a href="vaccinations.html" class="sidebar-link"><i class="fa-solid fa-syringe"></i> <span>Vaccinations</span></a></li>
+        <li><a href="inventory.html" class="sidebar-link"><i class="fa-solid fa-boxes-stacked"></i> <span>General Inventory</span></a></li>
+        <li><a href="equipment.html" class="sidebar-link"><i class="fa-solid fa-screwdriver-wrench"></i> <span>Equipment</span></a></li>
+        <li class="sidebar-menu-category">Finance & Contacts</li>
+        <li><a href="sales.html" class="sidebar-link"><i class="fa-solid fa-cart-shopping"></i> <span>Sales Management</span></a></li>
+        <li><a href="expenses.html" class="sidebar-link"><i class="fa-solid fa-receipt"></i> <span>Farm Expenses</span></a></li>
+        <li><a href="customers.html" class="sidebar-link"><i class="fa-solid fa-users"></i> <span>Customers</span></a></li>
+        <li><a href="suppliers.html" class="sidebar-link"><i class="fa-solid fa-truck-field"></i> <span>Suppliers</span></a></li>
+        <li class="sidebar-menu-category">Analytics & Admin</li>
+        <li><a href="reports.html" class="sidebar-link"><i class="fa-solid fa-file-invoice-dollar"></i> <span>Reports Center</span></a></li>
+        <li><a href="notifications.html" class="sidebar-link"><i class="fa-solid fa-bell"></i> <span>Alerts Feed</span></a></li>
+        <li class="admin-only"><a href="users.html" class="sidebar-link"><i class="fa-solid fa-user-gear"></i> <span>User Management</span></a></li>
+        <li><a href="profile.html" class="sidebar-link active"><i class="fa-solid fa-user-check"></i> <span>My Profile</span></a></li>
+      </ul>
+      <div class="sidebar-user">
+        <div class="user-avatar">U</div>
+        <div class="user-info"><h4 class="current-user-name">User</h4><span class="current-user-role">Role</span></div>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <div style="display: flex; align-items: center; gap: 1rem;">
+          <button id="sidebarToggle" class="topbar-toggle"><i class="fa-solid fa-bars"></i></button>
+          <div class="page-title"><h1>My Account Profile</h1></div>
+        </div>
+        <div class="topbar-actions">
+          <button onclick="Auth.logout()" class="btn-logout"><i class="fa-solid fa-right-from-bracket"></i> Logout</button>
+        </div>
+      </header>
+
+      <div class="content-body">
+        <!-- Mobile Profile Layout (3rd Phone in Reference Design Image) -->
+        <div class="mobile-only" style="max-width: 500px; margin: 0 auto;">
+          <!-- Centered Profile Avatar Header with Edit Badge -->
+          <div class="mobile-profile-header">
+            <div class="mobile-avatar-wrapper">
+              <div id="mobileProfileAvatar" class="mobile-avatar-img">U</div>
+              <div class="mobile-avatar-edit-badge">
+                <i class="fa-solid fa-pen"></i>
+              </div>
+            </div>
+            <h2 id="mobileProfileName">User Name</h2>
+            <p id="mobileProfileEmail">user@farm.com</p>
+          </div>
+
+          <!-- Personal Info Grouped Card -->
+          <div class="mobile-info-card-group">
+            <div class="mobile-info-group-title">
+              <h3>Personal info</h3>
+              <span>Edit</span>
+            </div>
+
+            <div class="mobile-info-row">
+              <div class="mobile-info-icon"><i class="fa-solid fa-user"></i></div>
+              <div class="mobile-info-details">
+                <label>Name</label>
+                <p id="mobileDetailName">User Name</p>
+              </div>
+            </div>
+
+            <div class="mobile-info-row">
+              <div class="mobile-info-icon"><i class="fa-solid fa-envelope"></i></div>
+              <div class="mobile-info-details">
+                <label>E-mail</label>
+                <p id="mobileDetailEmail">user@farm.com</p>
+              </div>
+            </div>
+
+            <div class="mobile-info-row">
+              <div class="mobile-info-icon"><i class="fa-solid fa-user-shield"></i></div>
+              <div class="mobile-info-details">
+                <label>Role</label>
+                <p id="mobileDetailRole">Admin</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Account Info Grouped Card -->
+          <div class="mobile-info-card-group">
+            <div class="mobile-info-group-title">
+              <h3>Account Info</h3>
+            </div>
+
+            <div class="mobile-info-row">
+              <div class="mobile-info-icon"><i class="fa-solid fa-circle-check" style="color: #10b981;"></i></div>
+              <div class="mobile-info-details">
+                <label>System Access</label>
+                <p>Full APFMS Authorization</p>
+              </div>
+            </div>
+
+            <div class="mobile-info-row">
+              <div class="mobile-info-icon"><i class="fa-solid fa-money-bill-wave" style="color: #10b981;"></i></div>
+              <div class="mobile-info-details">
+                <label>Currency Region</label>
+                <p>Nigerian Naira (₦)</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Desktop Profile View Grid -->
+        <div class="desktop-only" style="display: grid; grid-template-columns: 1fr 2fr; gap: 1.5rem; max-width: 900px;">
+          <!-- Profile Card -->
+          <div class="card" style="text-align: center;">
+            <div id="profileAvatar" style="width: 80px; height: 80px; border-radius: 50%; background: var(--primary-main); color: #fff; font-size: 2rem; font-weight: 700; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; border: 3px solid var(--primary-accent);">U</div>
+            <h3 id="profileName" style="margin-bottom: 0.25rem;">Loading...</h3>
+            <p id="profileEmail" style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 0.75rem;"></p>
+            <span id="profileRoleBadge" class="badge badge-success" style="text-transform: uppercase; font-size: 0.75rem;"></span>
+          </div>
+
+          <!-- Profile Details & Demo Account Info -->
+          <div>
+            <div class="card" style="margin-bottom: 1rem;">
+              <h3 style="margin-bottom: 1rem;"><i class="fa-solid fa-circle-info" style="color: var(--color-info);"></i> Account Details</h3>
+              <table style="width: 100%; font-size: 0.9rem; border-collapse: collapse;">
+                <tr style="border-bottom: 1px solid var(--border-color);">
+                  <td style="padding: 0.6rem 0; font-weight: 600; color: var(--text-muted); width: 35%;">Full Name</td>
+                  <td id="detailName" style="padding: 0.6rem 0;"></td>
+                </tr>
+                <tr style="border-bottom: 1px solid var(--border-color);">
+                  <td style="padding: 0.6rem 0; font-weight: 600; color: var(--text-muted);">Email Address</td>
+                  <td id="detailEmail" style="padding: 0.6rem 0;"></td>
+                </tr>
+                <tr style="border-bottom: 1px solid var(--border-color);">
+                  <td style="padding: 0.6rem 0; font-weight: 600; color: var(--text-muted);">Assigned Role</td>
+                  <td id="detailRole" style="padding: 0.6rem 0;"></td>
+                </tr>
+                <tr>
+                  <td style="padding: 0.6rem 0; font-weight: 600; color: var(--text-muted);">Account Status</td>
+                  <td style="padding: 0.6rem 0;"><span class="badge badge-success">Active</span></td>
+                </tr>
+              </table>
+            </div>
+
+            <div class="card" style="background: #f1fdf5; border-color: var(--color-success);">
+              <h3 style="color: var(--primary-dark); margin-bottom: 0.75rem;"><i class="fa-solid fa-shield-check" style="color: var(--color-success);"></i> Demo System Access</h3>
+              <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">This is a demonstration system loaded with realistic Nigerian poultry farm data. Use the following credentials to test different roles:</p>
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; font-size: 0.82rem;">
+                <div style="background: #fff; padding: 0.65rem; border-radius: var(--radius-md); border: 1px solid var(--border-color);">
+                  <strong style="color: var(--color-danger);">Admin</strong><br>admin@farm.com
+                </div>
+                <div style="background: #fff; padding: 0.65rem; border-radius: var(--radius-md); border: 1px solid var(--border-color);">
+                  <strong style="color: var(--color-info);">Manager</strong><br>manager@farm.com
+                </div>
+                <div style="background: #fff; padding: 0.65rem; border-radius: var(--radius-md); border: 1px solid var(--border-color);">
+                  <strong style="color: var(--accent-amber);">Worker</strong><br>worker@farm.com
+                </div>
+                <div style="background: #fff; padding: 0.65rem; border-radius: var(--radius-md); border: 1px solid var(--border-color);">
+                  <strong style="color: var(--color-success);">Finance</strong><br>finance@farm.com
+                </div>
+              </div>
+              <p style="font-size: 0.78rem; color: var(--text-muted); margin-top: 0.75rem;"><strong>Password for all demo accounts:</strong> Password123!</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="js/config.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    Auth.checkProtectedPage();
+    document.addEventListener('DOMContentLoaded', () => {
+      const user = Auth.getUser();
+      if (user) {
+        const initials = user.full_name ? user.full_name.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2) : 'U';
+        
+        // Desktop elements
+        if (document.getElementById('profileAvatar')) document.getElementById('profileAvatar').textContent = initials;
+        if (document.getElementById('profileName')) document.getElementById('profileName').textContent = user.full_name;
+        if (document.getElementById('profileEmail')) document.getElementById('profileEmail').textContent = user.email;
+        if (document.getElementById('profileRoleBadge')) document.getElementById('profileRoleBadge').textContent = user.role;
+        if (document.getElementById('detailName')) document.getElementById('detailName').textContent = user.full_name;
+        if (document.getElementById('detailEmail')) document.getElementById('detailEmail').textContent = user.email;
+        if (document.getElementById('detailRole')) document.getElementById('detailRole').innerHTML = `<span class="badge badge-info">${user.role}</span>`;
+        
+        // Mobile elements (matching reference design image)
+        if (document.getElementById('mobileProfileAvatar')) document.getElementById('mobileProfileAvatar').textContent = initials;
+        if (document.getElementById('mobileProfileName')) document.getElementById('mobileProfileName').textContent = user.full_name;
+        if (document.getElementById('mobileProfileEmail')) document.getElementById('mobileProfileEmail').textContent = user.email;
+        if (document.getElementById('mobileDetailName')) document.getElementById('mobileDetailName').textContent = user.full_name;
+        if (document.getElementById('mobileDetailEmail')) document.getElementById('mobileDetailEmail').textContent = user.email;
+        if (document.getElementById('mobileDetailRole')) document.getElementById('mobileDetailRole').textContent = user.role.toUpperCase();
+      }
+    });
+  </script>
+</body>
+</html>
