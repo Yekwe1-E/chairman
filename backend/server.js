@@ -44,20 +44,13 @@ app.use(helmet({
 }));
 
 // ── CORS ─────────────────────────────────────────────────────────────────────
-const allowedOrigins = process.env.FRONTEND_URL
-  ? [process.env.FRONTEND_URL]
-  : ['http://localhost:5000', 'http://127.0.0.1:5000'];
-
-app.use(cors({
-  origin: (origin, callback) => {
-    // Allow requests with no origin (Render health checks, same-origin HTML)
-    if (!origin || allowedOrigins.includes(origin)) {
-      return callback(null, true);
-    }
-    callback(new Error(`CORS: Origin ${origin} not allowed`));
-  },
-  credentials: true
-}));
+// CORS: if FRONTEND_URL env var is set, restrict to that origin only.
+// If not set (default), allow all origins — works on any Render/local URL.
+app.use(cors(
+  process.env.FRONTEND_URL
+    ? { origin: process.env.FRONTEND_URL, credentials: true }
+    : {}
+));
 
 // ── Body Parsing ─────────────────────────────────────────────────────────────
 app.use(express.json());
